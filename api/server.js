@@ -4,10 +4,13 @@ const helmet = require('helmet');
 
 const server = express();
 
+const authMiddleware = require('../auth/auth-middleware.js');
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
+server.use('/api/user', authMiddleware);
 // server.use('/api/user');
 // server.use('/api/tickets');
 // server.use('api/tickets/queue');
