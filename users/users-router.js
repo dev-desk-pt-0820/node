@@ -22,10 +22,9 @@ router.get('/:id', (req, res, next) => {
     })
     .catch((err) => {
       console.error(err);
-      next({
-            code: 500,
-            message: 'There was a problem getting the user.'
-      });
+      res.status(500).json({
+        message: 'There was a problem getting the user.'
+      })
     });
 });
 
@@ -53,10 +52,9 @@ router.put('/:id', (req, res, next) => {
     .then((user) => res.json(user))
     .catch((err) => {
       console.error(err);
-      next({
-        code: 500,
+      res.status(500).json({
         message: 'There was a problem updating the user.'
-      });
+      })
     });
 });
 
