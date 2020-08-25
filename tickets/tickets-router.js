@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Tickets = require('./tickets-model.js');
-// const jwt = require('jsonwebtoken');
+const jwtSecret = require('../config/secrets.js');
 
 router.get('/', async (req, res, next) => {
   if (Object.keys(req.query).length) {
@@ -64,11 +64,11 @@ router.put('/:id', async (req, res, next) => {
     const ticketID = req.params.id;
     const { title, description, what_i_tried, categories } = req.body;
   
-    if (title === '')
-      return next({
-        code: 400,
-        message: 'Please provide a title and description.',
-      });
+    // if (title === '')
+    //   return next({
+    //     code: 400,
+    //     message: 'Please provide a title and description.',
+    //   });
   
     try {
       const ticket = { title, description, what_i_tried };
