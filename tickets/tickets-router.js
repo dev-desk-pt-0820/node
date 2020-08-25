@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Tickets = require('./tickets-model.js');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 router.get('/', async (req, res, next) => {
   if (Object.keys(req.query).length) {
@@ -57,10 +57,10 @@ router.post('/', async (req, res, next) => {
           err
       })
     }
-  });
-  
+});
+
 router.put('/:id', async (req, res, next) => {
-    const userID = req.id;
+    const userID = req.jwt.id;
     const ticketID = req.params.id;
     const { title, description, what_i_tried, categories } = req.body;
   
@@ -105,7 +105,7 @@ router.delete('/:id', async (req, res, next) => {
         message: 'Could not delete the ticket.'
       });
     }
-  });
+});
   
 router.get('/:id', async (req, res) => {
     const ticketID = req.params.id;
