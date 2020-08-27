@@ -29,27 +29,16 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-  const id = Number(req.params.id);
+
+  const id = req.params.id;
   const { name, username, password, roles } = req.body;
-
-  if (id !== req.jwt.id)
-    return next({
-        code: 403,
-        message: 'You cannot update a profile that is not yours.'
-    });
-
-  if (!roles.every((role) => ['STUDENT', 'HELPER'].includes(role)))
-    return next({
-        code: 400,
-        message: 'Please provide a valid role.',
-    });
 
   if (password) var hash = bcrypt.hashSync(password, 8);
 
   const changes = { name, username, password: hash, roles };
 
   Users.update(id, changes)
-    .then((user) => res.json(user))
+    .then((user) => res.json({ user, changes }))
     .catch((err) => {
       console.error(err);
       res.status(500).json({

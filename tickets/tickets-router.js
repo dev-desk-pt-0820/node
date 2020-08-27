@@ -2,7 +2,6 @@
 const express = require('express');
 const router = express.Router();
 const Tickets = require('./tickets-model.js');
-const jwtSecret = require('../config/secrets.js');
 
 router.get('/', async (req, res, next) => {
   if (Object.keys(req.query).length) {
@@ -31,6 +30,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
+    const userID = req.body.user_id;
     const { posted_by, title, description, what_i_tried, categories } = req.body;
   
     if (!(title && description))
@@ -60,25 +60,24 @@ router.post('/', async (req, res, next) => {
 });
 
 router.put('/:id', async (req, res, next) => {
-    const userID = req.jwt.id;
+
     const ticketID = req.params.id;
-    const { title, description, what_i_tried, categories } = req.body;
-  
-    // if (title === '')
-    //   return next({
-    //     code: 400,
-    //     message: 'Please provide a title and description.',
-    //   });
+    const { title, description, what_i_tried, posted_by } = req.body;
   
     try {
-      const ticket = { title, description, what_i_tried };
-      const updatedTicket = await Tickets.update(
-        ticket,
-        categories,
-        ticketID,
-        userID
-      );
-      res.status(201).json(updatedTicket);
+      const ticket = { title, description, what_i_tried, posted_by };
+      Tickets.findById(ticketID)
+      .then(updatedTicket => {
+        if (updatedTicket) {
+          Tickets.update(
+          ticket,
+          )
+          .then(newTicket => {
+            res.status(201).json({ newTicket, ticket });
+          }) 
+        }
+      })      
+           
     } catch (err) {
       console.error(err);
       next({
@@ -90,14 +89,19 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     const ticketID = req.params.id;
-    const userID = req.jwt.id;
+    const userID = req.body.user_id;
     try {
-      const count = await Tickets.remove(ticketID, userID);
-      if (!count) return next({
-        code: 404,
-        message: 'Ticket not found'
-      });
-      res.status(200).json(count);
+      Tickets.findById(ticketID)
+      .then(delTicket => {
+        if (delTicket) {
+          Tickets.remove(ticketID, userID)
+          .then(() => {
+            res.status(200).json({
+              message: 'Ticket successfully deleted.'
+            });
+          })
+        }
+      })
     } catch (err) {
       console.error(err);
       next({

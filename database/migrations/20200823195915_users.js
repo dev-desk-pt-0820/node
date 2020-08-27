@@ -11,7 +11,7 @@ return knex.schema
             .integer('user_id')
             .unsigned()
             .notNullable()
-            .references('users.id')
+            .references('id').inTable('users')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
         // tbl.string('role').notNullable().unique()
@@ -24,13 +24,12 @@ return knex.schema
             .integer('posted_by')
             .unsigned()
             .notNullable()
-            .references('users.id')
-            .onUpdate('CASCADE')
+            .references('id').inTable('users')
             .onDelete('CASCADE');            
         tbl
             .integer('claimed_by')
             .unsigned()
-            .references('users.id')
+            .references('id').inTable('users')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
         tbl.timestamp('posted_at').defaultTo(knex.fn.now());
@@ -47,7 +46,7 @@ return knex.schema
             .integer('ticket_id')
             .unsigned()
             .notNullable()
-            .references('tickets.id')
+            .references('id').inTable('tickets')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
         tbl.string('category').notNullable();
@@ -59,7 +58,7 @@ return knex.schema
             .integer('posted_by')
             .unsigned()
             .notNullable()
-            .references('users.id')
+            .references('id').inTable('users')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
         tbl.timestamp('posted_at').defaultTo(knex.fn.now());
@@ -67,7 +66,7 @@ return knex.schema
             .integer('ticket_id')
             .unsigned()
             .notNullable()
-            .references('tickets.id')
+            .references('id').inTable('tickets')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
         tbl.text('content').notNullable();

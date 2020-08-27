@@ -41,27 +41,9 @@ async function add(user) {
 
 function update(userID, changes) {
   const { name, username, password, roles } = changes;
-  return db
-    .transaction(async (trx) => {
-      if (name || username || password) {
-        await trx('users')
-          .where({ id: userID })
-          .update({ name, username, password }, 'id');
-      }
-      if (roles) {
-        await trx('roles')
-            .where({ user_id: userID })
-            .del();
-        const rol = roles.map((role) => ({
-          user_id: userID,
-          role,
-        }));
-        await trx.batchInsert('roles', rol);
-      }
-
-      return userID;
-    })
-    .then((id) => findById(id));
+  return db('users')
+    .where({ id: userID })
+    .update({ name, username, password }, 'id');
 };
 
 async function findById(id) {
