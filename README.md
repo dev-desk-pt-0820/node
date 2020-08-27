@@ -3,6 +3,7 @@
 |-|
 |[Deployed API](#Deployed-API)|
 |[Postman Documentation](#Postman-Documentation)|
+|[DB Design](#DB-Design)|
 |[Auth Routes](#Auth-Routes)|
 |[User Routes](#User-Routes)|
 |[Ticket Routes](#Ticket-Routes)|
@@ -10,6 +11,8 @@
 Server located at: https://dev-desk-queue-backend.herokuapp.com/
 ### **Postman Documentation**
 Postman documentation located at: https://dev-desk-queue-backend.herokuapp.com/api
+### **DB Design**
+DB Design located at: https://app.dbdesigner.net/designer/schema/349443
 ## **Auth Routes**
 [back to top](#api-user-guide)
 ###  **User Creation**:
