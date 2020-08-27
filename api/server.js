@@ -22,6 +22,14 @@ server.get('/', (req, res) => {
     });
 });
 
+server.get('/api', (req, res) => {
+    res
+      .writeHead(302, {
+        Location: 'https://documenter.getpostman.com/view/11973259/TVCZbXDL',
+      })
+      .end();
+  });
+
 server.use(verification);
 server.use('/api/users', userRouter);
 server.use('/api/tickets', ticketRouter);

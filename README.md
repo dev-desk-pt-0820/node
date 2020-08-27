@@ -2,11 +2,14 @@
 |**Table of Contents:**|
 |-|
 |[Deployed API](#Deployed-API)|
+|[Postman Documentation](#Postman-Documentation)|
 |[Auth Routes](#Auth-Routes)|
 |[User Routes](#User-Routes)|
 |[Ticket Routes](#Ticket-Routes)|
 ### **Deployed App**
 Server located at: https://dev-desk-queue-backend.herokuapp.com/
+### **Postman Documentation**
+Postman documentation located at: https://dev-desk-queue-backend.herokuapp.com/
 ## **Auth Routes**
 [back to top](#api-user-guide)
 ###  **User Creation**:
