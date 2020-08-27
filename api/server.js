@@ -23,7 +23,7 @@ server.get('/', (req, res) => {
 });
 
 server.use(verification);
-server.use('/api/user', userRouter);
+server.use('/api/users', userRouter);
 server.use('/api/tickets', ticketRouter);
 
 module.exports = server;
