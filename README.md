@@ -9,7 +9,7 @@
 ### **Deployed App**
 Server located at: https://dev-desk-queue-backend.herokuapp.com/
 ### **Postman Documentation**
-Postman documentation located at: https://dev-desk-queue-backend.herokuapp.com/
+Postman documentation located at: https://dev-desk-queue-backend.herokuapp.com/api
 ## **Auth Routes**
 [back to top](#api-user-guide)
 ###  **User Creation**:
