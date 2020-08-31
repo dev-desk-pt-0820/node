@@ -78,32 +78,28 @@ Response:
         "id": 1,
         "name": "userOne",
         "username": "annaOne",
-        "password": "$2a$08$CTZouq.G08wgGG/X8QbjK.VzrFQPUa3DKt3snJO8136wPOHYhnx0S"
+        "password": "" // passwords will be hashed
     },
     {
         "id": 2,
         "name": "userTwo",
         "username": "annaTwo",
-        "password": "$2a$08$CTZouq.G08wgGG/X8QbjK.VzrFQPUa3DKt3snJO8136wPOHYhnx0S"
-    },
+        "password": "" // passwords will be hashed
     {
         "id": 3,
         "name": "userThree",
         "username": "annaOneTwoThreeFour",
-        "password": "$2a$08$CTZouq.G08wgGG/X8QbjK.VzrFQPUa3DKt3snJO8136wPOHYhnx0S"
-    },
+        "password": "" // passwords will be hashed
     {
         "id": 4,
         "name": "Jelly",
         "username": "testified pillow",
-        "password": "$2a$08$sL.4CNAFKJcW2bfLtca4Xu6PQ7oAVWwS6RrYsHgzzX/IKC.b7XRBC"
-    },
+        "password": "" // passwords will be hashed
     {
         "id": 5,
         "name": "Sweet summer blowout!",
         "username": "pillow certified",
-        "password": "$2a$08$nDge1g6dEtgUSztZU9tD6eHmbHeH1uB/.TLS1PDuSGxbAUN24jZja"
-    }
+        "password": "" // passwords will be hashed
 ]
 ```
 #### GET *api/users/:id*

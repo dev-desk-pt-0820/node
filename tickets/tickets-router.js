@@ -67,8 +67,8 @@ router.put('/:id', async (req, res, next) => {
     try {
       const ticket = { title, description, what_i_tried, posted_by };
       Tickets.findById(ticketID)
-      .then(updatedTicket => {
-        if (updatedTicket) {
+      .then(editedTicket => {
+        if (editedTicket) {
           Tickets.update(
           ticket,
           )
@@ -131,6 +131,78 @@ router.get('/:id/comments', async (req, res) => {
     } catch (error) {
       res.status(500).json({ error });
     }
+});
+
+router.patch('/:id/:action', async (req, res, next) => {
+  const userID = req.body.user_id;
+  const ticketID = req.params.id;
+  const action = req.params.action.toUpperCase();
+  let change;
+
+  switch (action) {
+    case 'CLAIM':
+      change = { claimed_by: userID };
+      break;
+
+    case 'RELEASE':
+      change = { claimed_by: null };
+      break;
+
+    case 'OPEN':
+      change = { status: 'OPEN' };
+      break;
+
+    case 'CLOSE':
+      change = { status: 'CLOSED' };
+      break;
+
+    default:
+      return next({
+        code: 400,
+        message: 'Please provide a valid action.',
+      });
+  }
+
+  try {
+    const ticket = await Tickets.findById(ticketID);
+
+    if (ticket.claimed_by_id && ticket.claimed_by_id !== userID)
+      return next({
+        code: 403,
+        message: 'This ticket is already claimed.',
+      });
+
+    if (!ticket.claimed_by_id && action === 'release')
+      return next({
+        code: 403,
+        message: 'This ticket has not been claimed.',
+      });
+
+    if (ticket.posted_by_id === userID) {
+      if (action === 'claim' || action === 'release')
+        return next({
+          code: 403,
+          message: 'You can\'t claim or release your own ticket.',
+        });
+    }
+
+    if (ticket.claimed_by_id === userID) {
+      if (action === 'claim')
+        return next({
+          code: 403,
+          message: 'You\'ve already claimed this ticket.',
+        });
+    }
+
+    const [editedTicket] = await Tickets.assert(change, ticketID);
+    res.status(201).json(editedTicket);
+  } catch (err) {
+    console.error(err);
+    next({
+      code: 500,
+      message: 'Could not update ticket.',
+    });
+  }
 });
 
 module.exports = router;

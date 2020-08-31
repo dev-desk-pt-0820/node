@@ -86,6 +86,12 @@ function add(ticket, categories) {
       .then((id) => findById(id));
 };
 
+function assert(change, ticketID) {
+    return db("tickets")
+      .where({ id: ticketID })
+      .update(change, ["id as ticket_id", "claimed_by", "status"]);
+  }
+
 function update(ticket) {
   return db('tickets')
     .where({ posted_by: ticket.posted_by })
@@ -103,6 +109,7 @@ module.exports = {
     findById,
     findComments,
     add,
+    assert,
     update,
     remove
 };
